@@ -1,0 +1,14 @@
+mrjob
+beautifulsoup4
+html5lib
+unidecode
+simplejson
+boto3
+sphinx_bootstrap_theme
+setuptools_scm
+future
+six
+s3fs
+nose
+warc
+-e https://github.com/jroakes/CommonCrawlJob.git#egg=CommonCrawlJob

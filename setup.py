@@ -30,7 +30,6 @@ setup(
         'setuptools_scm',
         "flake8",
     ],
-    install_requires=['warc'],
     entry_points={
         'console_scripts': [
             'crawl_index = aws.__main__:main',

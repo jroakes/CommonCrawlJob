@@ -1,44 +1,68 @@
 # A config file template to build off for running in production
 #
-# If you don't have the yaml module installed, you'll have to use JSON instead,
-# which would look something like this:
+# If you don't have the yaml module installed, you'll have to use JSON instead.
+
+
 
 runners:
   emr:
+    jobconf:
+       # May be helpful in increasing task timout.
+       # mapreduce.task.timeout: 3600000
+
     # Wer run on `us-east-1`
     # This ensure colocation with the CommonCrawl s3 bucket
-    aws_region: 'us-east-1'
-    aws_access_key_id: <Your AWS_ACCESS_KEY_ID>
-    aws_secret_access_key: <Your AWS_SECRET_ACCESS_KEY>
-    ec2_key_pair: <Name of the Key>
-    ec2_key_pair_file: <Path to your PEM file>
+    region: 'us-east-1'
+    aws_access_key_id: <YOUR_AWS_ACCESS_KEY_ID>
+    aws_secret_access_key: <YOUR_AWS_ACCESS_KEY>
+    ec2_key_pair: 'key-pair-name'
+    # chmod 600 keypair file
+    ec2_key_pair_file: path/to/keypair/file/from/root
     ssh_tunnel: true
-    ssh_tunnel_is_open: true
+    #This caused errors for me.
+    # ssh_tunnel_is_open: true
+
 
     # Remember to change to a more beefier in production
-    num_ec2_instances: 1
-    ec2_instance_type: 'm1.xlarge'
-    ec2_master_instance_type: 'm1.xlarge'
+    # x10 m1.medium took 10 hours to get through the common crawl.
+    num_core_instances: 5
+    instance_type: 'm1.medium'
+
 
     # Getting the right ami_version is important to get right.
     # https://pythonhosted.org/mrjob/guides/emr-bootstrap-cookbook.html#installing-system-packages
-    ami_version: '3.11.0'
+    image_version: '3.11.0'
+    #Python3.4
+    python_bin: python3.4
+    interpreter: python3.4
+    
+    #Python2.7
     python_bin: python2.7
     interpreter: python2.7
-
+        
     # These are functionally optional but realistically are not
-    emr_tags:
-        project: <Optional Your Project>
-        name: <Optional Project Name>
+    tags:
+        project: <Some Project Name>
+        name: <Some Run Name>
 
-    bootstrap_action:
+    # s3://beta.elasticmapreduce/bootstrap-actions/install-ganglia
+    bootstrap_actions:
         - s3://elasticmapreduce/bootstrap-actions/install-ganglia
 
     upload_files:
-        - examples/GoogleAnalytics.py
+    	#The python file (eg GoogleAnalytics.py) is uploaded automatically.
+        - requirements.txt
 
     bootstrap:
-        # Get the most current versions of packaging libraries
-        - sudo pip-2.7 install ujson setuptools wheel pip
-        - sudo pip-2.7 install -r requirements.txt#
+    	# Python 3.4
+        - sudo pip-3.4 install ujson setuptools wheel pip
+        - sudo yum install -y git
+        - sudo pip-3.4 install -r requirements.txt#
+        
+        #Python2.7
+         # - sudo pip-3.4 install ujson setuptools wheel pip
+         # - sudo yum install -y git
+         # - sudo pip-3.4 install -r requirements.txt#       
+
+
 

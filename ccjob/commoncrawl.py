@@ -3,10 +3,10 @@ from __future__ import print_function
 import re
 
 from mrjob.job import MRJob
-from warc import WARCFile
 from six.moves.urllib.request import url2pathname
 from s3fs import S3FileSystem
 
+from . warc import WARCFile
 from . structures import CaseInsensitiveDict
 
 __all__ = [
