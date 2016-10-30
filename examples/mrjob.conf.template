@@ -37,8 +37,8 @@ runners:
     interpreter: python3.4
     
     #Python2.7
-    python_bin: python2.7
-    interpreter: python2.7
+    #python_bin: python2.7
+    #interpreter: python2.7
         
     # These are functionally optional but realistically are not
     tags:

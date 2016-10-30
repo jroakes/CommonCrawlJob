@@ -11,4 +11,4 @@ six
 s3fs
 nose
 warc
--e https://github.com/jroakes/CommonCrawlJob.git#egg=CommonCrawlJob
+-e git://github.com/jroakes/CommonCrawlJob.git#egg=CommonCrawlJob
