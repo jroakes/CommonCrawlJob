@@ -12,7 +12,7 @@ import uuid
 import logging
 import re
 import hashlib
-from io import BytesIO as StringIO
+from io import StringIO
 
 #Python 2
 try:
