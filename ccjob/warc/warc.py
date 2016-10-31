@@ -329,7 +329,7 @@ class WARCReader:
         self.current_payload = None
         
     def read_header(self, fileobj):
-        version_line = fileobj.readline()
+        version_line = fileobj.readline().decode('utf-8')
         if not version_line:
             return None
             
